@@ -9,6 +9,12 @@ public class Product {
     private String catName;
     private String branchCode;
     private String branchName;
+    private double basePrice;
+    private double sellingPrice;
+    private double buyingPrice;
+    private double discountPercent;
+    private double vatPercent;
+    private String uom;
 
     public int getId() {
         return id;
@@ -73,6 +79,56 @@ public class Product {
     public void setBranchName(String branchName) {
         this.branchName = branchName;
     }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public double getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public double getBuyingPrice() {
+        return buyingPrice;
+    }
+
+    public void setBuyingPrice(double buyingPrice) {
+        this.buyingPrice = buyingPrice;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public double getVatPercent() {
+        return vatPercent;
+    }
+
+    public void setVatPercent(double vatPercent) {
+        this.vatPercent = vatPercent;
+    }
+
+    public String getUom() {
+        return uom;
+    }
+
+    public void setUom(String uom) {
+        this.uom = uom;
+    }
+    
+    
     
     
     

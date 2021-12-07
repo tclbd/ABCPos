@@ -20,7 +20,7 @@ public class ProductDAO implements ICommonInterface<Product>{
     
     @Override
     public int save(Product t) {
-        String sql = "insert into product (product_code, product_name, product_color, cat_code, cat_name, branch_code, branch_name) values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into product (product_code, product_name, product_color, cat_code, cat_name, branch_code, branch_name, base_price, selling_price, buying_price, discount_percent, vat_percent, uom) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int status = 0;
         try {
             con = DBConnection.getConnection();
@@ -32,6 +32,12 @@ public class ProductDAO implements ICommonInterface<Product>{
             ps.setString(5, t.getCatName());
             ps.setString(6, t.getBranchCode());
             ps.setString(7, t.getBranchName());
+            ps.setDouble(8, t.getBasePrice());
+            ps.setDouble(9, t.getSellingPrice());
+            ps.setDouble(10, t.getBuyingPrice());
+            ps.setDouble(11, t.getDiscountPercent());
+            ps.setDouble(12, t.getVatPercent());
+            ps.setString(13, t.getUom());
             status = ps.executeUpdate();
         } catch (Exception e) {
         }finally{
@@ -67,7 +73,7 @@ public class ProductDAO implements ICommonInterface<Product>{
 
     @Override
     public List<Product> getAll() {
-         String sql = "select * from product";
+        String sql = "select * from product";
         List<Product> products = new ArrayList<Product>();
         try  {
             con = DBConnection.getConnection();
@@ -93,6 +99,38 @@ public class ProductDAO implements ICommonInterface<Product>{
             }
         }
         return products;
+    }
+    
+
+    public Product getByCode(String code) {
+        String sql = "select * from product where product_code = ?";
+        Product product = new Product();
+        try  {
+            con = DBConnection.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, code);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+             product.setId(rs.getInt("id"));
+                product.setProductCode(rs.getString("product_code"));
+                product.setProductName(rs.getString("product_name"));
+                product.setBasePrice(rs.getDouble("base_price"));
+                product.setSellingPrice(rs.getDouble("selling_price"));
+                product.setBuyingPrice(rs.getDouble("buying_price"));
+                product.setDiscountPercent(rs.getDouble("discount_percent"));
+                product.setVatPercent(rs.getDouble("vat_percent"));
+                System.out.println(product.getProductName());
+            }
+               
+        } catch (Exception e) {
+        }finally{
+            try {
+                ps.close();
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+        return product;
     }
 
 }
